@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "661318743702",
+    "project_id": "todowithspot",
+    "storage_bucket": "todowithspot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661318743702:android:92bf4fcb014200d2b5f4b7",
+        "android_client_info": {
+          "package_name": "com.sainfe.todowithspot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661318743702-cne1o5hhbfe35b5g842iuct9qgholt50.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sainfe.todowithspot",
+            "certificate_hash": "784dd9bcc938850cad9fe2104f80ca46b2846b1d"
+          }
+        },
+        {
+          "client_id": "661318743702-60cu0lcg60q73chhoa56njer7bhknmdi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVmjVbsJy57XKwTfVWrKNsr9osOKp6C6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661318743702-60cu0lcg60q73chhoa56njer7bhknmdi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
