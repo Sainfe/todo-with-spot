@@ -1,12 +1,18 @@
 package com.sainfe.todowithspot;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,7 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInAccount getSignedAccount;
 
-    private static final int RC_SIGN_IN = 9001;
+    private ActivityResultLauncher<Intent> getResult;
+
     SignInButton login_button;
     Button logout_button;
 
@@ -34,6 +41,16 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode() == RESULT_OK) {
+                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
+                    handleSignInResult(task);
+                }
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -47,7 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         login_button = findViewById(R.id.login_button);
         login_button.setOnClickListener(view -> {
             getSignedAccount = GoogleSignIn.getLastSignedInAccount(this);
-            if (getSignedAccount != null) {
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (firebaseUser != null) {
                 Toast.makeText(this, R.string.already_login, Toast.LENGTH_SHORT).show();
             } else {
                 signIn();
@@ -62,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivity(signInIntent);
+        getResult.launch(signInIntent);
     }
 
     private void signOut() {
@@ -80,16 +98,6 @@ public class LoginActivity extends AppCompatActivity {
 
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-        }
     }
 
     private void handleSignInResult(@NonNull Task<GoogleSignInAccount> completedTask) {
