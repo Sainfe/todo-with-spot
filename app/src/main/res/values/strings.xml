@@ -7,5 +7,6 @@
     <string name="context">내용</string>
     <string name="submit">완료</string>
     <string name="place">장소</string>
+    <string name="todayTitle">Today</string>
 
 </resources>
