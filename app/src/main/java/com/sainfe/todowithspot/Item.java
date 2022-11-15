@@ -1,7 +1,9 @@
 package com.sainfe.todowithspot;
 
 public class Item {
+
     boolean isSelected = false;
+
     String text;
 
     public boolean getSelected(){
