@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">TodoWithSpot</string>
     <string name="create">Create</string>
+    <string name="arrivePlace">이 장소에 왔을때</string>
+    <string name="departPlace">이 장소를 떠날때</string>
+    <string name="dateAndHour"><![CDATA[날짜&시간]]></string>
+    <string name="context">내용</string>
+    <string name="submit">완료</string>
+    <string name="place">장소</string>
 
 </resources>
