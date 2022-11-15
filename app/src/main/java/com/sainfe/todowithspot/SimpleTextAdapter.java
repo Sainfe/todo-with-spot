@@ -19,6 +19,7 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private ArrayList<Item> list = new ArrayList<>();
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+
         CheckBox checkbox;
 
         ViewHolder(View itemView){

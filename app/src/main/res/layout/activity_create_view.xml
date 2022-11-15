@@ -19,18 +19,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:src="@drawable/topbarbutton"
-            android:background="false"
-
-
-            >
-
-        </ImageButton>
+            android:background="@null"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Create"
+            android:text="@string/create"
             android:textColor="@color/black"
             android:textSize="24dp"
             android:textStyle="bold"
@@ -80,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/input_field"
-            android:background="false"
+            android:background="@null"
             android:padding="8dp"
             >
 
@@ -117,23 +112,18 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:src="@drawable/select_date_button"
-                android:background="false"
-                android:padding="8dp"
-                >
-            </ImageButton>
+                android:background="@null"
+                android:padding="8dp"/>
+
 
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:src="@drawable/select_hour_button"
-                android:background="false"
-                android:padding="8dp"
-                >
-
-            </ImageButton>
+                android:background="@null"
+                android:padding="8dp"/>
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -166,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/select_hour_button"
-                android:background="false"
+                android:background="@null"
                 android:padding="8dp"
                 android:text="이 장소를 떠날때"
                 android:textSize="15dp"
@@ -182,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/select_hour_button"
-                android:background="false"
+                android:background="@null"
                 android:padding="8dp"
                 android:text="이 장소에 왔을때"
                 android:textSize="15dp"
@@ -193,14 +183,5 @@
 
             </RadioButton>
         </LinearLayout>
-
-
-
-
-
-
     </LinearLayout>
-
-
-
 </LinearLayout>

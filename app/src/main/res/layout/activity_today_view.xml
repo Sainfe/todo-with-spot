@@ -36,7 +36,7 @@
             android:src="@drawable/ic_baseline_add_24"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:background="false"
+            android:background="@null"
             />
 
     </LinearLayout>
