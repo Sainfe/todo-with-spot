@@ -14,11 +14,14 @@
         android:padding="16sp">
 
         <ImageButton
+            android:id="@+id/backward_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:clickable="true"
             android:background="@null"
-            android:src="@drawable/topbarbutton" />
+            android:src="@drawable/topbarbutton"
+            android:focusable="true" />
 
         <TextView
             android:layout_width="match_parent"
