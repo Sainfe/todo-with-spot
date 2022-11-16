@@ -1,10 +1,13 @@
-package com.sainfe.todowithspot;
+package com.sainfe.todowithspot.create;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.sainfe.todowithspot.MainActivity;
+import com.sainfe.todowithspot.R;
 
 public class CreateView extends AppCompatActivity {
 
@@ -18,7 +21,7 @@ public class CreateView extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent todayViewintent = new Intent(getApplicationContext(), TodayView.class);
+                Intent todayViewintent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(todayViewintent);
             }
         });
