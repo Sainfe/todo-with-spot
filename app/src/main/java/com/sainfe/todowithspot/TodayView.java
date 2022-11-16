@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -29,6 +32,18 @@ public class TodayView extends AppCompatActivity {
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
         SimpleTextAdapter adapter = new SimpleTextAdapter(list) ;
         recyclerView.setAdapter(adapter) ;
+
+        //createButton 클릭 시 , create view 전환
+        View createButton = findViewById(R.id.create_todo_list_button);
+        createButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent createViewintent = new Intent(getApplicationContext(), CreateView.class);
+                startActivity(createViewintent);
+            }
+        });
     }
+
 
 }

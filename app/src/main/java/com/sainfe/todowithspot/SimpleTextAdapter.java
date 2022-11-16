@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-
     private ArrayList<Item> list = new ArrayList<>();
 
     public class ViewHolder extends RecyclerView.ViewHolder{
