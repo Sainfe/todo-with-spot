@@ -74,4 +74,10 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int getItemCount() {
         return list.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
 }
