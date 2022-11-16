@@ -27,6 +27,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -44,4 +48,7 @@ dependencies {
 
     // firestore
     implementation 'com.google.firebase:firebase-firestore:24.4.0'
+
+    // YDS Android
+    implementation "com.github.yourssu:YDS-Android:2.1.9"
 }
