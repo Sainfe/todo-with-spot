@@ -43,6 +43,16 @@ public class TodayView extends AppCompatActivity {
                 startActivity(createViewintent);
             }
         });
+
+        View recyclerViewLayout = findViewById(R.id.recycler_view_layout);
+        recyclerViewLayout.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View view) {
+
+                return false;
+            }
+        });
     }
 
 
