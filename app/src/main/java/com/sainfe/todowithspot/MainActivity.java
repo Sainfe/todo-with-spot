@@ -53,13 +53,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
-                // All 화면으로 넘어가는 Intent 추가
+                Intent swipeLeftIntent = new Intent(getApplicationContext(), AllActivity.class);
+                startActivity(swipeLeftIntent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
             }
+
             @Override
             public void onSwipeRight() {
                 super.onSwipeRight();
                 Intent swipeRightIntent = new Intent(getApplicationContext(), CreateView.class);
                 startActivity(swipeRightIntent);
+                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
             }
         });
     }

@@ -25,8 +25,8 @@ public class CreateView extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent todayViewintent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(todayViewintent);
+                Intent todayViewIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(todayViewIntent);
             }
         });
 
@@ -37,6 +37,7 @@ public class CreateView extends AppCompatActivity {
                 super.onSwipeLeft();
                 Intent swipeLeftIntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(swipeLeftIntent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
             }
         });
     }
