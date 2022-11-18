@@ -1,12 +1,10 @@
 package com.sainfe.todowithspot;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -28,29 +26,13 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         CheckBox checkbox;
 
-        ViewHolder(View itemView, OnItemLongClickEventListener mItemClickListener){
-            super(itemView);
-
-            checkbox = itemView.findViewById(R.id.to_do_list);
-
-            checkbox.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    final int position = getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION){
-                        mItemClickListener.onItemLongClick(view, position);
-                    }
-                    return false;
-                }
-            });
-        }
-
         ViewHolder(View itemView){
             super(itemView);
 
             checkbox = itemView.findViewById(R.id.to_do_list);
 
             checkbox.setOnLongClickListener(new View.OnLongClickListener() {
+
                 @Override
                 public boolean onLongClick(View view) {
                     final int position = getAdapterPosition();
@@ -61,7 +43,6 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             });
         }
-
     }
 
     SimpleTextAdapter(ArrayList<Item> list){
@@ -93,8 +74,8 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         viewHolder.checkbox.setText(item.text);
         // 체크박스의 상태값을 알기 위해 리스너 부착
-        viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked)
             {
@@ -103,8 +84,6 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 else buttonView.setPaintFlags(0);
             }
         });
-
-
     }
 
     @Override
@@ -120,7 +99,4 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void setOnItemLongClickListener(OnItemLongClickEventListener listener){
         mItemClickListener = listener;
     }
-
-
-
 }
