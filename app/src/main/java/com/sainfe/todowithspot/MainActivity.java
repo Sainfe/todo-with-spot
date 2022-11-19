@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemLongClick(View view, int position) {
                 final Item item = list.get(position);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AppCompatAlertDialog);
                 builder.setTitle("TEST_TITLE"); // TODO : 뷰에 저장된 데이터 조회
                 builder.setMessage("TEST_MSG");
                 builder.setPositiveButton("확인", null);
