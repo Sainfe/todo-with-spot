@@ -16,6 +16,11 @@ import java.util.ArrayList;
 public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<Item> list = new ArrayList<>();
+    private OnItemLongClickEventListener mItemClickListener;
+
+    public interface OnItemLongClickEventListener{
+        void onItemLongClick(View view, int position);
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -25,6 +30,18 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             super(itemView);
 
             checkbox = itemView.findViewById(R.id.to_do_list);
+
+            checkbox.setOnLongClickListener(new View.OnLongClickListener() {
+
+                @Override
+                public boolean onLongClick(View view) {
+                    final int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        mItemClickListener.onItemLongClick(view, position);
+                    }
+                    return false;
+                }
+            });
         }
     }
 
@@ -38,7 +55,7 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Context context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
 
-        View view = inflater.inflate(R.layout.recyclerview_item, parent, false) ;
+        View view = inflater.inflate(R.layout.activity_recycler_view_item, parent, false) ;
         SimpleTextAdapter.ViewHolder vh = new SimpleTextAdapter.ViewHolder(view) ;
 
         return vh ;
@@ -57,8 +74,8 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         viewHolder.checkbox.setText(item.text);
         // 체크박스의 상태값을 알기 위해 리스너 부착
-        viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked)
             {
@@ -79,4 +96,7 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return position;
     }
 
+    public void setOnItemLongClickListener(OnItemLongClickEventListener listener){
+        mItemClickListener = listener;
+    }
 }
