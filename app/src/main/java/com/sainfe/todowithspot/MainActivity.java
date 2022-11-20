@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.sainfe.todowithspot.create.CreateView;
+import com.sainfe.todowithspot.create.CreateActivity;
 import com.sainfe.todowithspot.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent createViewintent = new Intent(getApplicationContext(), CreateView.class);
+                Intent createViewintent = new Intent(getApplicationContext(), CreateActivity.class);
                 startActivity(createViewintent);
             }
         });
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //  TODO : EDIT 화면으로 넘어가기
-                        Intent intent = new Intent(getApplicationContext(), CreateView.class);
+                        Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
                         startActivity(intent);
                     }
                 });
