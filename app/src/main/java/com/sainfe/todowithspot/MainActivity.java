@@ -1,8 +1,8 @@
 package com.sainfe.todowithspot;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,23 +11,23 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.sainfe.todowithspot.create.CreateView;
+import com.sainfe.todowithspot.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    private ActivityMainBinding binding;
     AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         bindList();
 
         // createButton 클릭 시 , create view 전환
-        View createButton = findViewById(R.id.create_todo_list_button);
-        createButton.setOnClickListener(new View.OnClickListener() {
+        binding.createTodoListButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -39,20 +39,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void bindList() {
         final ArrayList<Item> list = new ArrayList<>();
-        for (int i=0; i<100; i++) {
-            list.add(new Item("text "+ i)) ;
+        for (int i = 0; i < 100; i++) {
+            list.add(new Item("text " + i));
             // TODO : 데이테베이스에서 전체 조회로 구현 예정
         }
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-        RecyclerView recyclerView = findViewById(R.id.recycler1) ;
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recycler1.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        SimpleTextAdapter adapter = new SimpleTextAdapter(list) ;
-        recyclerView.setAdapter(adapter) ;
+        SimpleTextAdapter adapter = new SimpleTextAdapter(list);
+        binding.recycler1.setAdapter(adapter);
 
-        adapter.setOnItemLongClickListener(new SimpleTextAdapter.OnItemLongClickEventListener(){
+        adapter.setOnItemLongClickListener(new SimpleTextAdapter.OnItemLongClickEventListener() {
             @Override
             public void onItemLongClick(View view, int position) {
                 final Item item = list.get(position);
