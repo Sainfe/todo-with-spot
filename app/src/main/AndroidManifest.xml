@@ -33,7 +33,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".create.CreateView"
+            android:name=".create.CreateActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -1,40 +1,60 @@
 package com.sainfe.todowithspot;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 
-import com.sainfe.todowithspot.create.CreateView;
+import com.sainfe.todowithspot.create.CreateActivity;
+import com.sainfe.todowithspot.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
-    @SuppressLint("ClickableViewAccessibility") // performClick()을 override 하라는 경고 음소거
+    private ActivityMainBinding binding;
     AlertDialog alertDialog;
 
+    @SuppressLint("ClickableViewAccessibility") // performClick()을 override 하라는 경고 음소거
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         bindList();
 
         // createButton 클릭 시 , create view 전환
         View createButton = findViewById(R.id.create_todo_list_button);
         createButton.setOnClickListener(new View.OnClickListener() {
-        
+
             @Override
             public void onClick(View view) {
-                Intent createViewintent = new Intent(getApplicationContext(), CreateView.class);
+                Intent createViewintent = new Intent(getApplicationContext(), CreateActivity.class);
                 startActivity(createViewintent);
+            }
+        });
+
+        binding.mainLayout.setOnTouchListener(new OnSwipeTouchListener(this) {
+            @Override
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
+                Intent swipeLeftIntent = new Intent(getApplicationContext(), AllActivity.class);
+                startActivity(swipeLeftIntent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+            }
+
+            @Override
+            public void onSwipeRight() {
+                super.onSwipeRight();
+                Intent swipeRightIntent = new Intent(getApplicationContext(), CreateActivity.class);
+                startActivity(swipeRightIntent);
+                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
             }
         });
     }
@@ -47,15 +67,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-
         RecyclerView recyclerView = findViewById(R.id.recycler1) ;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        SimpleTextAdapter adapter = new SimpleTextAdapter(list);
-        recyclerView.setAdapter(adapter);
+        SimpleTextAdapter adapter = new SimpleTextAdapter(list) ;
+        recyclerView.setAdapter(adapter) ;
 
-        adapter.setOnItemLongClickListener(new SimpleTextAdapter.OnItemLongClickEventListener(){
+        adapter.setOnItemLongClickListener(new SimpleTextAdapter.OnItemLongClickEventListener() {
             @Override
             public void onItemLongClick(View view, int position) {
                 final Item item = list.get(position);
@@ -69,30 +88,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //  TODO : EDIT 화면으로 넘어가기
-                        Intent intent = new Intent(getApplicationContext(), CreateView.class);
+                        Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
                         startActivity(intent);
                     }
                 });
 
                 alertDialog = builder.create();
                 alertDialog.show();
-                
-        LinearLayout main_layout = findViewById(R.id.main_layout);
-        main_layout.setOnTouchListener(new OnSwipeTouchListener(this) {
-            @Override
-            public void onSwipeLeft() {
-                super.onSwipeLeft();
-                Intent swipeLeftIntent = new Intent(getApplicationContext(), AllActivity.class);
-                startActivity(swipeLeftIntent);
-                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-            }
-
-            @Override
-            public void onSwipeRight() {
-                super.onSwipeRight();
-                Intent swipeRightIntent = new Intent(getApplicationContext(), CreateView.class);
-                startActivity(swipeRightIntent);
-                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
             }
         });
     }
