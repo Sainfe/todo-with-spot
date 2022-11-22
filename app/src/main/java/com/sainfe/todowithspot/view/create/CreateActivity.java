@@ -3,15 +3,13 @@ package com.sainfe.todowithspot.view.create;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.ToggleButton;
 
 import com.sainfe.todowithspot.databinding.ActivityCreateBinding;
 import com.sainfe.todowithspot.view.today.OnSwipeTouchListener;
@@ -30,6 +28,7 @@ public class CreateActivity extends AppCompatActivity {
 
     ActivityCreateBinding binding;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,23 +37,18 @@ public class CreateActivity extends AppCompatActivity {
         binding.setViewModel(new CreateViewModel());
         binding.executePendingBindings();
 
-        View backwardButton = findViewById(R.id.backward_button);
-        backwardButton.setOnClickListener(view -> {
+        binding.backwardButton.setOnClickListener(view -> {
             finish();
         });
 
-        ToggleButton toggle = findViewById(R.id.toggle);
-        RadioGroup radioGroup = findViewById(R.id.radioGroup);
-        RadioButton leaveButton = findViewById(R.id.leave_button);
-        RadioButton arriveButton = findViewById(R.id.arrive_button);
-        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    leaveButton.setEnabled(true);
-                    arriveButton.setEnabled(true);
+                    binding.leaveButton.setEnabled(true);
+                    binding.arriveButton.setEnabled(true);
                 } else {
-                    leaveButton.setEnabled(false);
-                    arriveButton.setEnabled(false);
+                    binding.leaveButton.setEnabled(false);
+                    binding.arriveButton.setEnabled(false);
                 }
             }
         });
@@ -77,18 +71,6 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 timePickerDialog.show();
-            }
-        });
-
-        binding.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    binding.leaveButton.setEnabled(true);
-                    binding.arriveButton.setEnabled(true);
-                } else {
-                    binding.leaveButton.setEnabled(false);
-                    binding.arriveButton.setEnabled(false);
-                }
             }
         });
 

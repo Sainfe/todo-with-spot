@@ -3,7 +3,6 @@ package com.sainfe.todowithspot.view.today;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -38,14 +37,12 @@ public class TodayActivity extends AppCompatActivity {
 
         bindList();
 
-        // createButton 클릭 시 , create view 전환
-        View createButton = findViewById(R.id.create_todo_list_button);
-        createButton.setOnClickListener(new View.OnClickListener() {
+        binding.createTodoListButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent createViewintent = new Intent(getApplicationContext(), CreateActivity.class);
-                startActivity(createViewintent);
+                Intent createViewIntent = new Intent(getApplicationContext(), CreateActivity.class);
+                startActivity(createViewIntent);
             }
         });
 
@@ -76,12 +73,11 @@ public class TodayActivity extends AppCompatActivity {
         }
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-        RecyclerView recyclerView = findViewById(R.id.recycler1);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recycler1.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
         TodayAdapter adapter = new TodayAdapter(list);
-        recyclerView.setAdapter(adapter);
+        binding.recycler1.setAdapter(adapter);
 
         adapter.setOnItemLongClickListener(new TodayAdapter.OnItemLongClickEventListener() {
             @Override
