@@ -23,14 +23,16 @@ import java.util.ArrayList;
 public class TodayActivity extends AppCompatActivity {
 
     AlertDialog alertDialog;
+    ActivityTodayBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_today);
-        ActivityTodayBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_today);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_today);
         binding.setViewModel(new TodayViewModel());
         binding.executePendingBindings();
+
         bindList();
 
         // createButton 클릭 시 , create view 전환
