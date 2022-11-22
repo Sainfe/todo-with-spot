@@ -1,4 +1,4 @@
-package com.sainfe.todowithspot.create;
+package com.sainfe.todowithspot.view.create;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ToggleButton;
 
-import com.sainfe.todowithspot.MainActivity;
+import com.sainfe.todowithspot.view.today.TodayActivity;
 import com.sainfe.todowithspot.R;
 
 public class CreateView extends AppCompatActivity {
@@ -25,7 +25,7 @@ public class CreateView extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent todayViewintent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent todayViewintent = new Intent(getApplicationContext(), TodayActivity.class);
                 startActivity(todayViewintent);
             }
         });

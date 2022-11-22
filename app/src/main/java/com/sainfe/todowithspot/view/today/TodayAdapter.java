@@ -1,4 +1,4 @@
-package com.sainfe.todowithspot;
+package com.sainfe.todowithspot.view.today;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -11,6 +11,9 @@ import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sainfe.todowithspot.model.Item;
+import com.sainfe.todowithspot.R;
+
 import java.util.ArrayList;
 
 public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -18,25 +21,21 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private ArrayList<Item> list = new ArrayList<>();
     private OnItemLongClickEventListener mItemClickListener;
 
-    public interface OnItemLongClickEventListener{
+    public interface OnItemLongClickEventListener {
         void onItemLongClick(View view, int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-
+    public class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkbox;
 
-        ViewHolder(View itemView){
+        ViewHolder(View itemView) {
             super(itemView);
-
             checkbox = itemView.findViewById(R.id.to_do_list);
-
             checkbox.setOnLongClickListener(new View.OnLongClickListener() {
-
                 @Override
                 public boolean onLongClick(View view) {
                     final int position = getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
                         mItemClickListener.onItemLongClick(view, position);
                     }
                     return false;
@@ -45,20 +44,19 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    SimpleTextAdapter(ArrayList<Item> list){
+    SimpleTextAdapter(ArrayList<Item> list) {
         this.list = list;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext() ;
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
+        Context context = parent.getContext();
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.activity_recycler_view_item, parent, false) ;
-        SimpleTextAdapter.ViewHolder vh = new SimpleTextAdapter.ViewHolder(view) ;
-
-        return vh ;
+        View view = inflater.inflate(R.layout.activity_recycler_view_item, parent, false);
+        SimpleTextAdapter.ViewHolder vh = new SimpleTextAdapter.ViewHolder(view);
+        return vh;
     }
 
     @Override
@@ -77,10 +75,10 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked)
-            {
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                 item.setSelected(isChecked);
-                if(isChecked) buttonView.setPaintFlags(buttonView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                if (isChecked)
+                    buttonView.setPaintFlags(buttonView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 else buttonView.setPaintFlags(0);
             }
         });
@@ -96,7 +94,7 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return position;
     }
 
-    public void setOnItemLongClickListener(OnItemLongClickEventListener listener){
+    public void setOnItemLongClickListener(OnItemLongClickEventListener listener) {
         mItemClickListener = listener;
     }
 }

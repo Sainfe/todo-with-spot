@@ -1,4 +1,4 @@
-package com.sainfe.todowithspot;
+package com.sainfe.todowithspot.today;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,18 +10,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.sainfe.todowithspot.Item;
+import com.sainfe.todowithspot.R;
 import com.sainfe.todowithspot.create.CreateView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class TodayActivity extends AppCompatActivity {
 
     AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_today);
 
         bindList();
 
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemLongClick(View view, int position) {
                 final Item item = list.get(position);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AppCompatAlertDialog);
+                AlertDialog.Builder builder = new AlertDialog.Builder(TodayActivity.this, R.style.AppCompatAlertDialog);
                 builder.setTitle("TEST_TITLE"); // TODO : 뷰에 저장된 데이터 조회
                 builder.setMessage("TEST_MSG");
                 builder.setPositiveButton("확인", null);
