@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.sainfe.todowithspot.create.CreateView;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    @SuppressLint("ClickableViewAccessibility") // performClick()을 override 하라는 경고 음소거
     AlertDialog alertDialog;
 
     @Override
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         // createButton 클릭 시 , create view 전환
         View createButton = findViewById(R.id.create_todo_list_button);
         createButton.setOnClickListener(new View.OnClickListener() {
-
+        
             @Override
             public void onClick(View view) {
                 Intent createViewintent = new Intent(getApplicationContext(), CreateView.class);
@@ -45,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
+
         RecyclerView recyclerView = findViewById(R.id.recycler1) ;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        SimpleTextAdapter adapter = new SimpleTextAdapter(list) ;
-        recyclerView.setAdapter(adapter) ;
+        SimpleTextAdapter adapter = new SimpleTextAdapter(list);
+        recyclerView.setAdapter(adapter);
 
         adapter.setOnItemLongClickListener(new SimpleTextAdapter.OnItemLongClickEventListener(){
             @Override
@@ -73,6 +76,23 @@ public class MainActivity extends AppCompatActivity {
 
                 alertDialog = builder.create();
                 alertDialog.show();
+                
+        LinearLayout main_layout = findViewById(R.id.main_layout);
+        main_layout.setOnTouchListener(new OnSwipeTouchListener(this) {
+            @Override
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
+                Intent swipeLeftIntent = new Intent(getApplicationContext(), AllActivity.class);
+                startActivity(swipeLeftIntent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+            }
+
+            @Override
+            public void onSwipeRight() {
+                super.onSwipeRight();
+                Intent swipeRightIntent = new Intent(getApplicationContext(), CreateView.class);
+                startActivity(swipeRightIntent);
+                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
             }
         });
     }
