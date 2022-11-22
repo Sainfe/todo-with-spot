@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.ToggleButton;
 
 import com.sainfe.todowithspot.MainActivity;
 import com.sainfe.todowithspot.OnSwipeTouchListener;
@@ -38,6 +42,22 @@ public class CreateView extends AppCompatActivity {
                 Intent swipeLeftIntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(swipeLeftIntent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+            }
+        });
+
+        ToggleButton toggle = findViewById(R.id.toggle);
+        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        RadioButton leaveButton = findViewById(R.id.leave_button);
+        RadioButton arriveButton = findViewById(R.id.arrive_button);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    leaveButton.setEnabled(true);
+                    arriveButton.setEnabled(true);
+                } else {
+                    leaveButton.setEnabled(false);
+                    arriveButton.setEnabled(false);
+                }
             }
         });
     }
