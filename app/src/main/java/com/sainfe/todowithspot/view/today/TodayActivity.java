@@ -1,4 +1,4 @@
-package com.sainfe.todowithspot;
+package com.sainfe.todowithspot.view.today;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -12,20 +12,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.sainfe.todowithspot.create.CreateActivity;
-import com.sainfe.todowithspot.databinding.ActivityMainBinding;
+import com.google.firebase.Timestamp;
+import com.sainfe.todowithspot.R;
+import com.sainfe.todowithspot.databinding.ActivityTodayBinding;
+import com.sainfe.todowithspot.model.Todo;
+import com.sainfe.todowithspot.view.all.AllActivity;
+import com.sainfe.todowithspot.view.create.CreateActivity;
+import com.sainfe.todowithspot.viewmodel.today.TodayViewModel;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
+public class TodayActivity extends AppCompatActivity {
+
     AlertDialog alertDialog;
+    ActivityTodayBinding binding;
 
     @SuppressLint("ClickableViewAccessibility") // performClick()을 override 하라는 경고 음소거
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setContentView(R.layout.activity_today);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_today);
+        binding.setViewModel(new TodayViewModel());
+        binding.executePendingBindings();
 
         bindList();
 
@@ -40,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.mainLayout.setOnTouchListener(new OnSwipeTouchListener(this) {
+        binding.layoutToday.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
@@ -60,27 +69,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void bindList() {
-        final ArrayList<Item> list = new ArrayList<>();
-        for (int i=0; i<100; i++) {
-            list.add(new Item("text "+ i)) ;
+        final ArrayList<Todo> list = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            list.add(new Todo("text " + i, new Timestamp(10L, 10), false, false, null, 0, null));
             // TODO : 데이테베이스에서 전체 조회로 구현 예정
         }
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-        RecyclerView recyclerView = findViewById(R.id.recycler1) ;
+        RecyclerView recyclerView = findViewById(R.id.recycler1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        SimpleTextAdapter adapter = new SimpleTextAdapter(list) ;
-        recyclerView.setAdapter(adapter) ;
+        TodayAdapter adapter = new TodayAdapter(list);
+        recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemLongClickListener(new SimpleTextAdapter.OnItemLongClickEventListener() {
+        adapter.setOnItemLongClickListener(new TodayAdapter.OnItemLongClickEventListener() {
             @Override
             public void onItemLongClick(View view, int position) {
-                final Item item = list.get(position);
+                final Todo item = list.get(position);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AppCompatAlertDialog);
-                builder.setTitle("TEST_TITLE"); // TODO : 뷰에 저장된 데이터 조회
+                AlertDialog.Builder builder = new AlertDialog.Builder(TodayActivity.this, R.style.AppCompatAlertDialog);
+                builder.setTitle(item.getContent()); // TODO : 뷰에 저장된 데이터 조회
                 builder.setMessage("TEST_MSG");
                 builder.setPositiveButton("확인", null);
                 builder.setNegativeButton("수정", new DialogInterface.OnClickListener() {

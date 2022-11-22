@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.sainfe.todowithspot.create.CreateViewModel" />
+            type="com.sainfe.todowithspot.viewmodel.create.CreateViewModel" />
     </data>
 
     <LinearLayout
@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        tools:context=".create.CreateActivity">
+        tools:context=".view.create.CreateActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

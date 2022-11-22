@@ -1,4 +1,4 @@
-package com.sainfe.todowithspot;
+package com.sainfe.todowithspot.model;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
