@@ -3,7 +3,6 @@ package com.sainfe.todowithspot.view.create;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -15,10 +14,17 @@ import android.widget.RadioGroup;
 import android.widget.ToggleButton;
 
 import com.sainfe.todowithspot.databinding.ActivityCreateBinding;
-import com.sainfe.todowithspot.view.today.TodayActivity;
+import com.sainfe.todowithspot.view.today.OnSwipeTouchListener;
 import com.sainfe.todowithspot.R;
+import com.sainfe.todowithspot.view.today.TodayActivity;
 import com.sainfe.todowithspot.viewmodel.create.CreateViewModel;
-import com.sainfe.todowithspot.viewmodel.today.TodayViewModel;
+
+import android.widget.DatePicker;
+import android.widget.TimePicker;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -29,7 +35,7 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create);
-        binding.setViewmodel(new CreateViewModel());
+        binding.setViewModel(new CreateViewModel());
         binding.executePendingBindings();
 
         View backwardButton = findViewById(R.id.backward_button);
@@ -50,38 +56,6 @@ public class CreateActivity extends AppCompatActivity {
                     leaveButton.setEnabled(false);
                     arriveButton.setEnabled(false);
                 }
-            }
-        });
-    }
-import android.widget.DatePicker;
-import android.widget.TimePicker;
-
-import com.sainfe.todowithspot.MainActivity;
-import com.sainfe.todowithspot.OnSwipeTouchListener;
-import com.sainfe.todowithspot.R;
-import com.sainfe.todowithspot.databinding.ActivityCreateBinding;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-public class CreateActivity extends AppCompatActivity {
-    private ActivityCreateBinding binding;
-    private CreateViewModel createViewModel;
-
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_create);
-        binding.setViewModel(createViewModel);
-        binding.setLifecycleOwner(this);
-
-        binding.backwardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent todayViewIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(todayViewIntent);
             }
         });
 
@@ -122,7 +96,7 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
-                Intent swipeLeftIntent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent swipeLeftIntent = new Intent(getApplicationContext(), TodayActivity.class);
                 startActivity(swipeLeftIntent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
             }

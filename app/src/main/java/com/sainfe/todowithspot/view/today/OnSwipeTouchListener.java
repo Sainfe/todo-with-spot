@@ -1,4 +1,4 @@
-package com.sainfe.todowithspot;
+package com.sainfe.todowithspot.view.today;
 
 import android.content.Context;
 import android.view.GestureDetector;

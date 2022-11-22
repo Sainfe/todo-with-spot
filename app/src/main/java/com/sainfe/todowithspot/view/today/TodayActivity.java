@@ -16,6 +16,7 @@ import com.google.firebase.Timestamp;
 import com.sainfe.todowithspot.R;
 import com.sainfe.todowithspot.databinding.ActivityTodayBinding;
 import com.sainfe.todowithspot.model.Todo;
+import com.sainfe.todowithspot.view.all.AllActivity;
 import com.sainfe.todowithspot.view.create.CreateActivity;
 import com.sainfe.todowithspot.viewmodel.today.TodayViewModel;
 
@@ -48,7 +49,7 @@ public class TodayActivity extends AppCompatActivity {
             }
         });
 
-        binding.mainLayout.setOnTouchListener(new OnSwipeTouchListener(this) {
+        binding.layoutToday.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
