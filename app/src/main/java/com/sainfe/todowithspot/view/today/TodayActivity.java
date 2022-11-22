@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,7 @@ public class TodayActivity extends AppCompatActivity {
     AlertDialog alertDialog;
     ActivityTodayBinding binding;
 
+    @SuppressLint("ClickableViewAccessibility") // performClick()을 override 하라는 경고 음소거
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,24 @@ public class TodayActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent createViewintent = new Intent(getApplicationContext(), CreateActivity.class);
                 startActivity(createViewintent);
+            }
+        });
+
+        binding.mainLayout.setOnTouchListener(new OnSwipeTouchListener(this) {
+            @Override
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
+                Intent swipeLeftIntent = new Intent(getApplicationContext(), AllActivity.class);
+                startActivity(swipeLeftIntent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+            }
+
+            @Override
+            public void onSwipeRight() {
+                super.onSwipeRight();
+                Intent swipeRightIntent = new Intent(getApplicationContext(), CreateActivity.class);
+                startActivity(swipeRightIntent);
+                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
             }
         });
     }

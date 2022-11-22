@@ -5,12 +5,15 @@
 
     <data>
 
+        <import type="com.yourssu.design.system.atom.Picker" />
+
         <variable
-            name="viewmodel"
+            name="viewModel"
             type="com.sainfe.todowithspot.viewmodel.create.CreateViewModel" />
     </data>
 
     <LinearLayout
+        android:id="@+id/create_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -101,21 +104,27 @@
                 android:orientation="horizontal">
 
                 <ImageButton
+                    android:id="@+id/date_picker_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:onClick="showDatePickerDialog"
                     android:padding="8dp"
                     android:src="@drawable/select_date_button" />
 
                 <ImageButton
+                    android:id="@+id/time_picker_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:onClick="showTimePickerDialog"
                     android:padding="8dp"
                     android:src="@drawable/select_hour_button" />
+
             </LinearLayout>
+
         </LinearLayout>
 
         <RelativeLayout
