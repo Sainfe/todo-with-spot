@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.sainfe.todowithspot.R;
+
 public class AllActivity extends AppCompatActivity {
 
     @Override

@@ -13,21 +13,16 @@ import android.widget.ToggleButton;
 import com.sainfe.todowithspot.view.today.TodayActivity;
 import com.sainfe.todowithspot.R;
 
-public class CreateView extends AppCompatActivity {
+public class CreateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_view);
+        setContentView(R.layout.activity_create);
 
         View backwardButton = findViewById(R.id.backward_button);
-        backwardButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent todayViewintent = new Intent(getApplicationContext(), TodayActivity.class);
-                startActivity(todayViewintent);
-            }
+        backwardButton.setOnClickListener(view -> {
+            finish();
         });
 
         ToggleButton toggle = findViewById(R.id.toggle);
