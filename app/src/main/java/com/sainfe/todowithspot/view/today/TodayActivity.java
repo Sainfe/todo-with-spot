@@ -2,19 +2,15 @@ package com.sainfe.todowithspot.view.today;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
-import com.google.firebase.Timestamp;
 import com.sainfe.todowithspot.R;
 import com.sainfe.todowithspot.databinding.ActivityTodayBinding;
 import com.sainfe.todowithspot.model.Todo;
@@ -44,7 +40,6 @@ public class TodayActivity extends AppCompatActivity {
         viewModel.reload();
         todoList = viewModel.getTodoList().getValue();
         bindList();
-
         viewModel.getTodoList().observe(this, new Observer<ArrayList<Todo>>() {
             @Override
             public void onChanged(ArrayList<Todo> todos) {
@@ -83,7 +78,7 @@ public class TodayActivity extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        TodayAdapter adapter = new TodayAdapter(todoList);
+        TodoAdapter adapter = new TodoAdapter(todoList);
         binding.recyclerView.setAdapter(adapter);
 
         adapter.setOnItemLongClickListener((view, position) -> {
