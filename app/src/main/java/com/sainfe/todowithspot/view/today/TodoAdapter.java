@@ -16,7 +16,7 @@ import com.sainfe.todowithspot.model.Todo;
 
 import java.util.ArrayList;
 
-public class TodayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<Todo> list = new ArrayList<>();
     private OnItemLongClickEventListener mItemClickListener;
@@ -44,7 +44,7 @@ public class TodayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    TodayAdapter(ArrayList<Todo> list) {
+    public TodoAdapter(ArrayList<Todo> list) {
         this.list = list;
     }
 
@@ -55,7 +55,7 @@ public class TodayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.item_todo, parent, false);
-        TodayAdapter.ViewHolder vh = new TodayAdapter.ViewHolder(view);
+        TodoAdapter.ViewHolder vh = new TodoAdapter.ViewHolder(view);
         return vh;
     }
 
