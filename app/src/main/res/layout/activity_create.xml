@@ -48,6 +48,7 @@
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/create_todo_list_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -78,7 +79,8 @@
 
             <com.yourssu.design.system.atom.SimpleTextField
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:id="@+id/content" />
 
         </LinearLayout>
 
