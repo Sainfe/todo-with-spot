@@ -1,5 +1,6 @@
 package com.sainfe.todowithspot.view.create;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -11,6 +12,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.sainfe.todowithspot.databinding.ActivityCreateBinding;
 import com.sainfe.todowithspot.view.today.OnSwipeTouchListener;
 import com.sainfe.todowithspot.R;
@@ -24,18 +31,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class CreateActivity extends AppCompatActivity {
+public class CreateActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     ActivityCreateBinding binding;
+    private GoogleMap mMap;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create);
         binding.setViewModel(new CreateViewModel());
         binding.executePendingBindings();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
+        mapFragment.getMapAsync(this);
 
         binding.backwardButton.setOnClickListener(view -> {
             finish();
@@ -102,4 +113,17 @@ public class CreateActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+
+        LatLng SEOUL = new LatLng(37.56, 126.97);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(SEOUL);
+        mMap.addMarker(markerOptions);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 10));
+    }
 }

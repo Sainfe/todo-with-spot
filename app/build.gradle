@@ -55,4 +55,8 @@ dependencies {
 
     // YDS Android
     implementation "com.github.yourssu:YDS-Android:2.1.9"
+
+    //api
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 }
