@@ -55,4 +55,7 @@ dependencies {
 
     // YDS Android
     implementation "com.github.yourssu:YDS-Android:2.1.9"
+
+    // fcm
+    implementation 'com.google.firebase:firebase-messaging'
 }

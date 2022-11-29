@@ -1,5 +1,8 @@
 package com.sainfe.todowithspot.view.today;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -7,10 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.sainfe.todowithspot.R;
 import com.sainfe.todowithspot.databinding.ActivityTodayBinding;
 import com.sainfe.todowithspot.model.Todo;
@@ -36,6 +45,8 @@ public class TodayActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_today);
         binding.setViewModel(viewModel);
         binding.executePendingBindings();
+
+        subscribeTimeTopic(this);
 
         viewModel.reload();
         todoList = viewModel.getTodoList().getValue();
@@ -101,5 +112,19 @@ public class TodayActivity extends AppCompatActivity {
             alertDialog = builder.create();
             alertDialog.show();
         });
+    }
+
+    public void subscribeTimeTopic(Context context) {
+        FirebaseMessaging.getInstance().subscribeToTopic("time")
+                .addOnCompleteListener(task -> {
+                    String msg;
+                    if (task.isSuccessful()) {
+                        msg = "time subscribed";
+                        // topic 구독되었다는 표시
+                    } else {
+                        msg = "time subscribed failed";
+                    }
+                    Log.d(TAG, msg);
+                });
     }
 }
