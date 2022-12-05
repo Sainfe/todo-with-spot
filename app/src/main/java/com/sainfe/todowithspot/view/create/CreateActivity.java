@@ -112,12 +112,14 @@ public class CreateActivity extends AppCompatActivity
             finish();
         });
 
+        View google_map = findViewById(R.id.google_map);
+        google_map.setVisibility(View.GONE);
         binding.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-
+                    google_map.setVisibility(View.VISIBLE);
                 } else {
-
+                    google_map.setVisibility(View.GONE);
                 }
             }
         });
