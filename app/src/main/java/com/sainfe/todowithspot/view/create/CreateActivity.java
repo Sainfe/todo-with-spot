@@ -115,11 +115,9 @@ public class CreateActivity extends AppCompatActivity
         binding.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    binding.leaveButton.setEnabled(true);
-                    binding.arriveButton.setEnabled(true);
+
                 } else {
-                    binding.leaveButton.setEnabled(false);
-                    binding.arriveButton.setEnabled(false);
+
                 }
             }
         });

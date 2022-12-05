@@ -170,41 +170,6 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <RadioGroup
-                        android:id="@+id/radioGroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/leave_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@null"
-                            android:enabled="false"
-                            android:layoutDirection="rtl"
-                            android:padding="8dp"
-                            android:text="@string/departPlace"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="15dp" />
-
-                        <RadioButton
-                            android:id="@+id/arrive_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@null"
-                            android:enabled="false"
-                            android:layoutDirection="rtl"
-                            android:padding="8dp"
-                            android:text="@string/arrivePlace"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="15dp" />
-
-                    </RadioGroup>
                 </LinearLayout>
 
                 <fragment
