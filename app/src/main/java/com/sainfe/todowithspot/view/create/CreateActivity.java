@@ -41,6 +41,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.GeoPoint;
 import com.sainfe.todowithspot.databinding.ActivityCreateBinding;
 import com.sainfe.todowithspot.view.today.OnSwipeTouchListener;
 import com.sainfe.todowithspot.R;
@@ -82,6 +83,8 @@ public class CreateActivity extends AppCompatActivity
     private Location location;
 
     private View mLayout;
+
+    GeoPoint geoPoint;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -211,6 +214,8 @@ public class CreateActivity extends AppCompatActivity
             public void onMapClick(@NonNull LatLng latLng) {
                 Log.d(TAG, "onMapClick :");
 
+                geoPoint = new GeoPoint(latLng.latitude, latLng.longitude); // geoPoint로 변환
+
                 if (clickMarker != null) clickMarker.remove(); // marker 중복 생성 방지
 
                 MarkerOptions markerOptions = new MarkerOptions();
@@ -242,8 +247,6 @@ public class CreateActivity extends AppCompatActivity
                 String markerTitle = getCurrentAddress(currentPosition);
                 String markerSnippet = location.getLatitude() + String.valueOf(location.getLongitude()); // 위도 + 경도
                 Log.d(TAG, "onLocationResult : " + markerSnippet);
-
-//                setCurrentLocation(location, markerTitle, markerSnippet);
 
                 mCurrentLocation = location;
             }
