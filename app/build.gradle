@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.sainfe.todowithspot"
-        minSdk 24
+        minSdk 31
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -55,4 +55,11 @@ dependencies {
 
     // YDS Android
     implementation "com.github.yourssu:YDS-Android:2.1.9"
+
+    //api
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    // snackar
+    implementation 'com.google.android.material:material:1.8.0-alpha03'
 }

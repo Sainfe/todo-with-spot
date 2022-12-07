@@ -10,4 +10,16 @@
     <string name="todayTitle">Today</string>
     <string name="allTitle">All</string>
     <string name="fill_this_text_field">일정을 작성해주세요</string>
+    <string name="unable_get_location_information">Default Location</string>
+    <string name="check_location_permission">location permission, GPS 활성 여부를 확인하세요.</string>
+    <string name="explain_location_permission_need">장소에 따른 알람 서비스를 이용하려면 위치 접근 권한이 필요합니다.</string>
+    <string name="check">확인</string>
+    <string name="geocoder_error">GPS -> address 변환 에러</string>
+    <string name="no_address">주소 없음</string>
+    <string name="title_on_location_service">위치 서비스 활성화</string>
+    <string name="text_on_location_service">장소에 따른 알람 서비스를 이용하려면 위치 서비스가 필요합니다.</string>
+    <string name="setting">설정</string>
+    <string name="cancel">취소</string>
+    <string name="click_location">선택 위치</string>
+
 </resources>
