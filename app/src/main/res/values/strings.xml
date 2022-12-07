@@ -9,5 +9,5 @@
     <string name="place">장소</string>
     <string name="todayTitle">Today</string>
     <string name="allTitle">All</string>
-
+    <string name="fill_this_text_field">일정을 작성해주세요</string>
 </resources>
