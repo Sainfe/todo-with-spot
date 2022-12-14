@@ -9,11 +9,10 @@ import com.sainfe.todowithspot.model.Todo;
 public class CreateViewModel extends BaseObservable {
 
     public FirebaseFirestore db = FirebaseFirestore.getInstance();
-    // TODO: sharedPreference 데이터 저장
-    String uid = "";
+    String uid = "uid-test1";
 
    public void createTodo(Todo todo) {
-        db.collection("users").document().collection("todos").document().set(todo);
+        db.collection("users").document(uid).collection("todos").document().set(todo);
     }
 
     public void patchInfoTodo(DocumentSnapshot todo, Todo newTodo) {
