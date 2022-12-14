@@ -9,6 +9,7 @@
     <string name="place">장소</string>
     <string name="todayTitle">Today</string>
     <string name="allTitle">All</string>
+    <string name="fill_this_text_field">일정을 작성해주세요</string>
     <string name="unable_get_location_information">Default Location</string>
     <string name="check_location_permission">location permission, GPS 활성 여부를 확인하세요.</string>
     <string name="explain_location_permission_need">장소에 따른 알람 서비스를 이용하려면 위치 접근 권한이 필요합니다.</string>

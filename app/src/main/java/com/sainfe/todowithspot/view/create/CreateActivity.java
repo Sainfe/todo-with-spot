@@ -25,7 +25,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
-
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -43,6 +44,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.GeoPoint;
 import com.sainfe.todowithspot.databinding.ActivityCreateBinding;
+import com.sainfe.todowithspot.model.Todo;
 import com.sainfe.todowithspot.view.today.OnSwipeTouchListener;
 import com.sainfe.todowithspot.R;
 import com.sainfe.todowithspot.view.today.TodayActivity;
@@ -52,6 +54,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.sql.Time;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -157,6 +160,29 @@ public class CreateActivity extends AppCompatActivity
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
             }
         });
+
+        View createListButton = findViewById(R.id.create_todo_list_button); // 완료버튼
+
+        String contentField = binding.content.getText().toString();
+
+
+        int year = (datePickerDialog.getDatePicker().getYear())-1900;
+        int month = datePickerDialog.getDatePicker().getMonth();
+        int date = datePickerDialog.getDatePicker().getDayOfMonth();
+
+        String isAlarm = binding.toggle.getText().toString();
+        createListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Todo todo = new Todo(contentField,  new Timestamp(new Date(year, month, date)), false, Boolean.parseBoolean(isAlarm), new GeoPoint(20L, 20L), 0, Timestamp.now());
+                binding.getViewModel().createTodo(todo);
+                System.out.println("onClick");
+                System.out.println(contentField);
+                Intent afterCreateIntent = new Intent(getApplicationContext(), TodayActivity.class);
+                startActivity(afterCreateIntent);
+
+            }
+        });
     }
 
     private final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
@@ -172,8 +198,12 @@ public class CreateActivity extends AppCompatActivity
 
     private final TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
-        public void onTimeSet(TimePicker timePicker, int i, int i1) {
-
+        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+            try {
+                Time time = new Time(hourOfDay, minute, 0);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     };
 
