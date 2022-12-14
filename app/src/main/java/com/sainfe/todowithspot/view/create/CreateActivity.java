@@ -88,6 +88,7 @@ public class CreateActivity extends AppCompatActivity
     private View mLayout;
 
     GeoPoint geoPoint;
+    Time time;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -173,7 +174,7 @@ public class CreateActivity extends AppCompatActivity
                 if(contentField.equals("")) {
                     Toast.makeText(getApplicationContext(), "Todo 내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Todo todo = new Todo(contentField,  new Timestamp(new Date(year, month, date)), false, Boolean.parseBoolean(isAlarm), geoPoint, 0, Timestamp.now());
+                    Todo todo = new Todo(contentField,  new Timestamp(new Date(year + month + date + time.getTime())), false, Boolean.parseBoolean(isAlarm), geoPoint, 0, Timestamp.now());
                     binding.getViewModel().createTodo(todo);
                     System.out.println("onClick");
                     System.out.println(contentField);
@@ -189,6 +190,7 @@ public class CreateActivity extends AppCompatActivity
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             try {
                 Date d = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                Toast.makeText(CreateActivity.this, d.toString(), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -199,7 +201,7 @@ public class CreateActivity extends AppCompatActivity
         @Override
         public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
             try {
-                Time time = new Time(hourOfDay, minute, 0);
+                time = new Time(hourOfDay, minute, 0);
             } catch (Exception e) {
                 e.printStackTrace();
             }
