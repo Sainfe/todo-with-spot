@@ -93,7 +93,7 @@ public class AllActivity extends AppCompatActivity {
     }
 
     public String getTimeSimpleFormat(Timestamp timestamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm a");
         return sdf.format(timestamp.toDate());
     }
 }
