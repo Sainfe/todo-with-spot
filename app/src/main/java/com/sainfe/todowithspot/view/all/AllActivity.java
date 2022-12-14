@@ -65,7 +65,7 @@ public class AllActivity extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        TodoAdapter adapter = new TodoAdapter(todoList);
+        AllAdapter adapter = new AllAdapter(todoList);
         binding.recyclerView.setAdapter(adapter);
 
         adapter.setOnItemLongClickListener((view, position) -> {
