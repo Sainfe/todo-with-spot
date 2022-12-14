@@ -161,23 +161,19 @@ public class CreateActivity extends AppCompatActivity
             }
         });
 
-        View createListButton = findViewById(R.id.create_todo_list_button); // 완료버튼
-
-
-
         int year = (datePickerDialog.getDatePicker().getYear())-1900;
         int month = datePickerDialog.getDatePicker().getMonth();
         int date = datePickerDialog.getDatePicker().getDayOfMonth();
 
         String isAlarm = binding.toggle.getText().toString();
-        createListButton.setOnClickListener(new View.OnClickListener() {
+        binding.createTodoListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String contentField = binding.content.getText().toString();
                 if(contentField.equals("")) {
                     Toast.makeText(getApplicationContext(), "Todo 내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Todo todo = new Todo(contentField,  new Timestamp(new Date(year, month, date)), false, Boolean.parseBoolean(isAlarm), new GeoPoint(20L, 20L), 0, Timestamp.now());
+                    Todo todo = new Todo(contentField,  new Timestamp(new Date(year, month, date)), false, Boolean.parseBoolean(isAlarm), geoPoint, 0, Timestamp.now());
                     binding.getViewModel().createTodo(todo);
                     System.out.println("onClick");
                     System.out.println(contentField);
