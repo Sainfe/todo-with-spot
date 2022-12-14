@@ -31,7 +31,7 @@ public class AllViewModel extends BaseObservable {
     }
 
     public void reload() {
-        db.collection("users").document(uid).collection("todos").orderBy("date").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("users").document(uid).collection("todos").orderBy("time").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
@@ -45,7 +45,7 @@ public class AllViewModel extends BaseObservable {
                     for (DocumentChange doc : value.getDocumentChanges()) {
                         if (doc.getType() == DocumentChange.Type.ADDED) {
                             check = true;
-                            Todo item = new Todo(doc.getDocument().get("content").toString(), (Timestamp) doc.getDocument().get("date"), (Boolean) doc.getDocument().get("done"), (Boolean) doc.getDocument().get("alarm"), (GeoPoint) doc.getDocument().get("place"), Integer.parseInt(Objects.requireNonNull(doc.getDocument().get("placeType")).toString()), null);
+                            Todo item = new Todo(doc.getDocument().get("content").toString(), (Timestamp) doc.getDocument().get("time"), (Boolean) doc.getDocument().get("done"), (Boolean) doc.getDocument().get("alarm"), (GeoPoint) doc.getDocument().get("place"), Integer.parseInt(Objects.requireNonNull(doc.getDocument().get("placeType")).toString()), null);
                             temp.add(item);
                         } else {
                             check = false;

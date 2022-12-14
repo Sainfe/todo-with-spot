@@ -55,8 +55,8 @@ public class TodayViewModel extends BaseObservable {
                     for (DocumentChange doc : value.getDocumentChanges()) {
                         if (doc.getType() == DocumentChange.Type.ADDED) {
                             check = true;
-                            if (getDateSimpleFormat((Timestamp) doc.getDocument().get("date")) == getDateSimpleFormat(Timestamp.now())) {
-                                Todo item = new Todo(doc.getDocument().get("content").toString(), (Timestamp) doc.getDocument().get("date"), (Boolean) doc.getDocument().get("done"), (Boolean) doc.getDocument().get("alarm"), (GeoPoint) doc.getDocument().get("place"), Integer.parseInt(Objects.requireNonNull(doc.getDocument().get("placeType")).toString()), null);
+                            if (getDateSimpleFormat((Timestamp) doc.getDocument().get("time")) == getDateSimpleFormat(Timestamp.now())) {
+                                Todo item = new Todo(doc.getDocument().get("content").toString(), (Timestamp) doc.getDocument().get("time"), (Boolean) doc.getDocument().get("done"), (Boolean) doc.getDocument().get("alarm"), (GeoPoint) doc.getDocument().get("place"), Integer.parseInt(Objects.requireNonNull(doc.getDocument().get("placeType")).toString()), null);
                                 temp.add(item);
                             }
                         } else {
