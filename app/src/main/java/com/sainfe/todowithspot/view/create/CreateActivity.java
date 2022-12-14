@@ -170,8 +170,8 @@ public class CreateActivity extends AppCompatActivity
                 int year = (datePickerDialog.getDatePicker().getYear()) - 1900;
                 int month = datePickerDialog.getDatePicker().getMonth();
                 int date = datePickerDialog.getDatePicker().getDayOfMonth();
-                if(contentField.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Todo 내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                if(contentField.equals("") || time == null) {
+                    Toast.makeText(getApplicationContext(), "내용을 모두 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     Todo todo = new Todo(contentField,  new Timestamp(new Date(new Date(year, month, date).getTime() + time.getTime())), false, Boolean.parseBoolean(isAlarm), geoPoint, 0, Timestamp.now());
                     binding.getViewModel().createTodo(todo);
