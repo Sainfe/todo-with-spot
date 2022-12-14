@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.firebase.Timestamp;
 import com.sainfe.todowithspot.R;
 import com.sainfe.todowithspot.databinding.ActivityAllBinding;
 import com.sainfe.todowithspot.model.Todo;
@@ -20,6 +21,7 @@ import com.sainfe.todowithspot.view.today.TodayActivity;
 import com.sainfe.todowithspot.view.today.TodoAdapter;
 import com.sainfe.todowithspot.viewmodel.all.AllViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class AllActivity extends AppCompatActivity {
@@ -72,8 +74,8 @@ public class AllActivity extends AppCompatActivity {
             final Todo item = todoList.get(position);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(AllActivity.this, R.style.AppCompatAlertDialog);
-            builder.setTitle(item.getContent()); // TODO : 뷰에 저장된 데이터 조회
-            builder.setMessage("TEST_MSG");
+            builder.setTitle(item.getContent());
+            builder.setMessage("Time : " + getTimeSimpleFormat(item.getTime()));
             builder.setPositiveButton("확인", null);
             builder.setNegativeButton("수정", new DialogInterface.OnClickListener() {
 
@@ -88,5 +90,10 @@ public class AllActivity extends AppCompatActivity {
             alertDialog = builder.create();
             alertDialog.show();
         });
+    }
+
+    public String getTimeSimpleFormat(Timestamp timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        return sdf.format(timestamp.toDate());
     }
 }
