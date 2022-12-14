@@ -104,18 +104,22 @@ public class AllActivity extends AppCompatActivity {
     }
 
     public String getPlaceToAddress(GeoPoint geoPoint) {
-        Geocoder geocoder = new Geocoder(this, Locale.KOREA);
-
-        List<Address> address;
-        try {
-            address = geocoder.getFromLocation(geoPoint.getLatitude(), geoPoint.getLongitude(), 1);
-        } catch (IOException e) {
-            return String.valueOf(R.string.geocoder_error);
-        }
-        if (address == null || address.size() == 0) {
-            return String.valueOf(R.string.no_address);
+        if (geoPoint == null) {
+            return getString(R.string.no_address);
         } else {
-            return address.get(0).getAddressLine(0);
+            Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+
+            List<Address> address;
+            try {
+                address = geocoder.getFromLocation(geoPoint.getLatitude(), geoPoint.getLongitude(), 1);
+            } catch (IOException e) {
+                return getString(R.string.geocoder_error);
+            }
+            if (address == null || address.size() == 0) {
+                return getString(R.string.no_address);
+            } else {
+                return address.get(0).getAddressLine(0);
+            }
         }
     }
 }
