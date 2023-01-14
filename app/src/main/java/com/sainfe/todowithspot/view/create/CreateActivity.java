@@ -92,6 +92,7 @@ public class CreateActivity extends AppCompatActivity
     private View mLayout;
 
     GeoPoint geoPoint;
+    Time time;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -174,26 +175,24 @@ public class CreateActivity extends AppCompatActivity
             }
         });
 
-        View createListButton = findViewById(R.id.create_todo_list_button); // 완료버튼
-
-        String contentField = binding.content.getText().toString();
-
-
-        int year = (datePickerDialog.getDatePicker().getYear())-1900;
-        int month = datePickerDialog.getDatePicker().getMonth();
-        int date = datePickerDialog.getDatePicker().getDayOfMonth();
-
         String isAlarm = binding.toggle.getText().toString();
-        createListButton.setOnClickListener(new View.OnClickListener() {
+        binding.createTodoListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Todo todo = new Todo(contentField,  new Timestamp(new Date(year, month, date)), false, Boolean.parseBoolean(isAlarm), new GeoPoint(20L, 20L), 0, Timestamp.now());
-                binding.getViewModel().createTodo(todo);
-                System.out.println("onClick");
-                System.out.println(contentField);
-                Intent afterCreateIntent = new Intent(getApplicationContext(), TodayActivity.class);
-                startActivity(afterCreateIntent);
-
+                String contentField = binding.content.getText().toString();
+                int year = (datePickerDialog.getDatePicker().getYear()) - 1900;
+                int month = datePickerDialog.getDatePicker().getMonth();
+                int date = datePickerDialog.getDatePicker().getDayOfMonth();
+                if(contentField.equals("") || time == null) {
+                    Toast.makeText(getApplicationContext(), "내용을 모두 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Todo todo = new Todo(contentField,  new Timestamp(new Date(new Date(year, month, date).getTime() + time.getTime())), false, Boolean.parseBoolean(isAlarm), geoPoint, 0, Timestamp.now());
+                    binding.getViewModel().createTodo(todo);
+                    System.out.println("onClick");
+                    System.out.println(contentField);
+                    Intent afterCreateIntent = new Intent(getApplicationContext(), TodayActivity.class);
+                    startActivity(afterCreateIntent);
+                }
             }
         });
     }
@@ -203,6 +202,7 @@ public class CreateActivity extends AppCompatActivity
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             try {
                 Date d = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                Toast.makeText(CreateActivity.this, d.toString(), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -213,7 +213,7 @@ public class CreateActivity extends AppCompatActivity
         @Override
         public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
             try {
-                Time time = new Time(hourOfDay, minute, 0);
+                time = new Time(hourOfDay, minute, 0);
             } catch (Exception e) {
                 e.printStackTrace();
             }

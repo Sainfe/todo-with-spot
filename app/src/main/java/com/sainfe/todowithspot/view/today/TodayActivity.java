@@ -9,8 +9,12 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.GeoPoint;
 import com.sainfe.todowithspot.R;
 import com.sainfe.todowithspot.databinding.ActivityTodayBinding;
 import com.sainfe.todowithspot.model.Todo;
@@ -18,7 +22,11 @@ import com.sainfe.todowithspot.view.all.AllActivity;
 import com.sainfe.todowithspot.view.create.CreateActivity;
 import com.sainfe.todowithspot.viewmodel.today.TodayViewModel;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class TodayActivity extends AppCompatActivity {
 
@@ -85,8 +93,8 @@ public class TodayActivity extends AppCompatActivity {
             final Todo item = todoList.get(position);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(TodayActivity.this, R.style.AppCompatAlertDialog);
-            builder.setTitle(item.getContent()); // TODO : 뷰에 저장된 데이터 조회
-            builder.setMessage("TEST_MSG");
+            builder.setTitle(item.getContent());
+            builder.setMessage("Time : " + getTimeSimpleFormat(item.getTime()) + "\n" + "Place : " + getPlaceToAddress(item.getPlace()));
             builder.setPositiveButton("확인", null);
             builder.setNegativeButton("수정", new DialogInterface.OnClickListener() {
 
@@ -101,5 +109,30 @@ public class TodayActivity extends AppCompatActivity {
             alertDialog = builder.create();
             alertDialog.show();
         });
+    }
+
+    public String getTimeSimpleFormat(Timestamp timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd hh:mm a");
+        return sdf.format(timestamp.toDate());
+    }
+
+    public String getPlaceToAddress(GeoPoint geoPoint) {
+        if (geoPoint == null) {
+            return getString(R.string.no_address);
+        } else {
+            Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+
+            List<Address> address;
+            try {
+                address = geocoder.getFromLocation(geoPoint.getLatitude(), geoPoint.getLongitude(), 1);
+            } catch (IOException e) {
+                return getString(R.string.geocoder_error);
+            }
+            if (address == null || address.size() == 0) {
+                return getString(R.string.no_address);
+            } else {
+                return address.get(0).getAddressLine(0);
+            }
+        }
     }
 }

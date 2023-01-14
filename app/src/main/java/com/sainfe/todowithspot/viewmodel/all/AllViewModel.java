@@ -1,23 +1,27 @@
 package com.sainfe.todowithspot.viewmodel.all;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.databinding.BaseObservable;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.sainfe.todowithspot.model.Todo;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AllViewModel extends BaseObservable {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    // TODO: sharedPreference 데이터 저장, 현재는 임시
     String uid = "uid-test1";
 
     MutableLiveData<ArrayList<Todo>> todoList = new MutableLiveData<>(new ArrayList<>());
@@ -27,7 +31,7 @@ public class AllViewModel extends BaseObservable {
     }
 
     public void reload() {
-        db.collection("users").document(uid).collection("todos").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("users").document(uid).collection("todos").orderBy("time").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
@@ -37,14 +41,17 @@ public class AllViewModel extends BaseObservable {
                     todoList = new MutableLiveData<>();
                 } else {
                     ArrayList<Todo> temp = new ArrayList<>();
+                    Boolean check = false;
                     for (DocumentChange doc : value.getDocumentChanges()) {
                         if (doc.getType() == DocumentChange.Type.ADDED) {
-                            Todo item = new Todo(doc.getDocument().get("content").toString(), null, false, false, null, 0, null);
+                            check = true;
+                            Todo item = new Todo(doc.getDocument().get("content").toString(), (Timestamp) doc.getDocument().get("time"), (Boolean) doc.getDocument().get("done"), (Boolean) doc.getDocument().get("alarm"), (GeoPoint) doc.getDocument().get("place"), Integer.parseInt(Objects.requireNonNull(doc.getDocument().get("placeType")).toString()), null);
                             temp.add(item);
+                        } else {
+                            check = false;
                         }
                     }
-                    // firestore 상에서 온라인으로 데이터를 바꾸면 데이터가 삭제되는 문제 존재
-                    todoList.setValue(temp);
+                    if(check) todoList.setValue(temp);
                 }
             }
         });
