@@ -12,7 +12,12 @@ public class CreateViewModel extends BaseObservable {
     String uid = "uid-test1";
 
    public void createTodo(Todo todo) {
+<<<<<<< HEAD
+       System.out.println("createTodo");
+        db.collection("users").document().collection("todos").document().set(todo);
+=======
         db.collection("users").document(uid).collection("todos").document().set(todo);
+>>>>>>> 7c43d33a2b2b74554d761867bb2bd79c1d325184
     }
 
     public void patchInfoTodo(DocumentSnapshot todo, Todo newTodo) {
