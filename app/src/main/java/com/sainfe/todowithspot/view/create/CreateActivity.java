@@ -42,6 +42,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.GeoPoint;
 import com.sainfe.todowithspot.databinding.ActivityCreateBinding;
 import com.sainfe.todowithspot.model.Todo;
@@ -62,7 +63,10 @@ import java.util.List;
 import java.util.Locale;
 
 public class CreateActivity extends AppCompatActivity
-        implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
+        implements
+        OnMapReadyCallback,
+        ActivityCompat.OnRequestPermissionsResultCallback {
+
 
     ActivityCreateBinding binding;
     private GoogleMap mMap;
@@ -93,6 +97,15 @@ public class CreateActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+//        firestore.useEmulator("10.0.0.2", 8080);
+//
+//        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+//                .setPersistenceEnabled(false)
+//                .build();
+//        firestore.setFirestoreSettings(settings);
+
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -387,9 +400,9 @@ public class CreateActivity extends AppCompatActivity
         }
     }
 
-//    public void setCurrentLocation(Location location) {
-//        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude()); // 현재 위치
-//    }
+    public void setCurrentLocation(Location location) {
+        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude()); // 현재 위치
+    }
 
     private void showDialogForLocationServiceSetting() {
         AlertDialog.Builder builder = new AlertDialog.Builder(CreateActivity.this);
